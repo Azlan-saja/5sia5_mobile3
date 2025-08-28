@@ -33,7 +33,7 @@ class DatabaseHelper {
 
   // create note table
   final String insertUserTable = '''
-  Insert INTO user (userId, userName, userPassword) 
+  INSERT INTO users (userId, userName, userPassword) 
     value (1, 'admin', '1234')
   ''';
 
