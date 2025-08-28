@@ -1,4 +1,4 @@
-import 'package:aplikasi_5sia5_mobile3/view/login_view.dart';
+import 'package:aplikasi_5sia5_mobile3/views/login_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,8 +11,10 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme:
-          ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal)),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
+      ),
       home: LoginView(),
     );
   }
