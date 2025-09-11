@@ -1,3 +1,4 @@
+import 'package:aplikasi_5sia5_mobile3/models/user_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -34,7 +35,7 @@ class DatabaseHelper {
   // create note table
   final String insertUserTable = '''
   INSERT INTO users (userId, userName, userPassword) 
-    value (1, 'admin', '1234')
+    values (1, 'admin', '1234')
   ''';
 
   // Initialize the database
@@ -58,5 +59,17 @@ class DatabaseHelper {
     if (_database != null) return _database!;
     _database = await initDB();
     return _database!;
+  }
+
+  Future<bool> login(UserModel user) async {
+    final db = await database;
+
+    final result = await db.query(
+      'users',
+      where: 'userName = ? AND userPassword = ?',
+      whereArgs: [user.userName, user.userPassword],
+    );
+
+    return result.isNotEmpty;
   }
 }
