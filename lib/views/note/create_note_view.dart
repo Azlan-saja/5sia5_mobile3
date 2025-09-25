@@ -45,6 +45,8 @@ class CreateNoteView extends StatelessWidget {
                 controller: noteController.contentController,
                 validator: (value) =>
                     noteController.cekValidasi(value, label: 'Content'),
+                onFieldSubmitted: (_) =>
+                    noteController.prosesCreateData(context),
                 maxLines: 5,
                 textInputAction: TextInputAction.done,
                 decoration: InputDecoration(
