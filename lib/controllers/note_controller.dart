@@ -47,9 +47,10 @@ class NoteController {
           ),
         );
         // Navigasi ke halaman Notes
-        Navigator.pushReplacement(
+        Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const NoteView()),
+          (route) => false,
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
