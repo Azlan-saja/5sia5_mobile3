@@ -115,7 +115,7 @@ class _NoteViewState extends State<NoteView> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.teal,
         foregroundColor: Colors.white,
-        onPressed: () => Navigator.push(
+        onPressed: () => Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) => CreateNoteView(),
