@@ -73,4 +73,52 @@ class NoteController {
       );
     }
   }
+
+  Future prosesUpdateData(BuildContext context, {required int noteId}) async {
+    if (!formKey.currentState!.validate()) return;
+
+    try {
+      int result = await db.updateNote(
+        titleController.text,
+        contentController.text,
+        noteId,
+      );
+
+      if (!context.mounted) return;
+
+      if (result > 0) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('Perubahan Berhasil Disimpan!'),
+            backgroundColor: Colors.teal[400],
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+        // Navigasi ke halaman Notes
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const NoteView()),
+          (route) => false,
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Failed to update note. Please try again.'),
+            backgroundColor: Colors.redAccent,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    } catch (e) {
+      if (!context.mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('An error occurred while update the note.'),
+          backgroundColor: Colors.redAccent,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
+  }
 }

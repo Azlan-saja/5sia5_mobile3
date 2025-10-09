@@ -2,6 +2,7 @@ import 'package:aplikasi_5sia5_mobile3/controllers/note_controller.dart';
 import 'package:aplikasi_5sia5_mobile3/models/node_model.dart';
 import 'package:aplikasi_5sia5_mobile3/views/login_view.dart';
 import 'package:aplikasi_5sia5_mobile3/views/note/create_note_view.dart';
+import 'package:aplikasi_5sia5_mobile3/views/note/update_note_view.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -92,13 +93,19 @@ class _NoteViewState extends State<NoteView> {
                                     fontWeight: FontWeight.bold, fontSize: 16),
                               ),
                               subtitle: Text(
-                                DateFormat("yMMMd")
-                                    .format(DateTime.parse(note.createdAt)),
+                                '${note.noteContent}\n\n${DateFormat("yMMMd").format(DateTime.parse(note.createdAt))}',
                                 style: const TextStyle(
                                     color: Colors.grey, fontSize: 13),
                               ),
                               onTap: () {
                                 // Navigasi ke halaman lihat/update note
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        UpdateNoteView(note: note),
+                                  ),
+                                );
                               },
                             ),
                           ),

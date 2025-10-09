@@ -86,4 +86,17 @@ class DatabaseHelper {
 
     return result.map((e) => NoteModel.fromMap(e)).toList();
   }
+
+  Future<int> updateNote(String title, String content, int noteId) async {
+    final Database db = await database;
+    return db.update(
+      'notes',
+      {
+        'noteTitle': title,
+        'noteContent': content,
+      },
+      where: 'noteId = ?',
+      whereArgs: [noteId],
+    );
+  }
 }
