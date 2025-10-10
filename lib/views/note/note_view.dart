@@ -48,6 +48,11 @@ class _NoteViewState extends State<NoteView> {
         child: Column(
           children: [
             TextFormField(
+              controller: noteController.searchController,
+              onChanged: (_) async {
+                await noteController.prosesCari();
+                setState(() {});
+              },
               decoration: InputDecoration(
                 hintText: "Search Note",
                 prefixIcon: Icon(Icons.search),
@@ -85,6 +90,43 @@ class _NoteViewState extends State<NoteView> {
                             elevation: 4,
                             shadowColor: Colors.black.withAlpha(124),
                             child: ListTile(
+                              trailing: IconButton(
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text('Delete Note?'),
+                                      content: const Text(
+                                          'Are you sure you want to delete this note?'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          child: const Text('Cancel'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () async {
+                                            await noteController
+                                                .prosesDeleteData(
+                                              context,
+                                              noteId: note.noteId!,
+                                            );
+                                            setState(() {});
+                                          },
+                                          child: const Text(
+                                            'Delete',
+                                            style: TextStyle(color: Colors.red),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.redAccent,
+                                ),
+                              ),
                               contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 16, vertical: 6),
                               title: Text(

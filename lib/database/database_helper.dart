@@ -99,4 +99,25 @@ class DatabaseHelper {
       whereArgs: [noteId],
     );
   }
+
+  Future<int> deleteNote(int id) async {
+    final Database db = await database;
+    return db.delete(
+      'notes',
+      where: 'noteId = ?',
+      whereArgs: [id],
+    );
+  }
+
+  Future<List<NoteModel>> searchNotes(String keyword) async {
+    final Database db = await database;
+
+    final List<Map<String, Object?>> result = await db.query(
+      'notes',
+      where: 'LOWER(noteTitle) LIKE ? OR LOWER(noteContent) LIKE ?',
+      whereArgs: ['%${keyword.toLowerCase()}%', '%${keyword.toLowerCase()}%'],
+    );
+
+    return result.map((map) => NoteModel.fromMap(map)).toList();
+  }
 }
