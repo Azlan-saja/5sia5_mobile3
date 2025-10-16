@@ -16,8 +16,8 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
       ),
-      // home: LoginView(),
-      home: NoteView(),
+      home: LoginView(),
+      // home: NoteView(),
     );
   }
 }
